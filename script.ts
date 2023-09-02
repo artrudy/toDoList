@@ -1,0 +1,116 @@
+let taskList = [];
+
+function mainMenu() {
+  //   let i: number = 1;
+  //   while (localStorage.getItem(`${i}`) !== null) {
+  //     taskList.push(`\n ${taskList.length + 1}: ${localStorage.getItem(`${i}`)}`);
+  //     i += 1;
+  //     console.log(taskList);
+  //   }
+
+  const userInput = prompt(
+    `to add new task -- please enter 'add',\nto delete previously added task -- please enter "delete",\nto edit previously added task -- plese enter "edit", \nto clear list of tasks -- please enter "clear", \nto view the list of tasks -- please enter 'view'. \nMake your choise.`
+  )
+    ?.trim()
+    .toLowerCase();
+
+  switch (userInput) {
+    case "add":
+      console.log("add");
+      addToList(userInput);
+      break;
+
+    case "view":
+      console.log("view");
+      viewList();
+      break;
+
+    case "clear":
+      console.log("clear");
+      clearTaskList();
+      break;
+
+    case "delete":
+      console.log("delete");
+      deleteTask();
+      break;
+
+    case "edit":
+      console.log("edit");
+      editTask();
+      break;
+
+    default:
+      mainMenu();
+  }
+}
+
+function addToList(addedInput: string) {
+  const taskToDo = prompt(`Enter the task you want to add:`)
+    ?.trim()
+    .toLowerCase();
+
+  //   localStorage.setItem(`${taskList.length + 1}`, `${taskToDo}`);
+
+  taskList.push(`\n ${taskList.length + 1}: ${taskToDo}`);
+  console.log(taskList);
+  mainMenu();
+}
+
+function viewList() {
+  alert(taskList);
+  mainMenu();
+}
+
+function clearTaskList() {
+  taskList = [];
+  mainMenu();
+}
+
+function deleteTask() {
+  const itemToDelete: number = Number(
+    prompt("What is the number of the task that you want to delete?")
+  );
+
+  if (
+    itemToDelete < 1 ||
+    itemToDelete > taskList.length ||
+    isNaN(itemToDelete)
+  ) {
+    deleteTask();
+  }
+
+  taskList.splice(itemToDelete - 1, 1);
+
+  let partsToInsertArr: object = taskList.map((it) => it.split(":").pop());
+
+  let newTaskList: object = partsToInsertArr.map(
+    (it, index) => `\n ${index + 1}: ${it}`
+  );
+
+  taskList = [].concat(newTaskList);
+
+  mainMenu();
+}
+
+function editTask() {
+  const itemToEdit: number = Number(
+    prompt("What is the number of the task that you want to edit?")
+  );
+
+  if (itemToEdit < 1 || itemToEdit > taskList.length || isNaN(itemToEdit)) {
+    editTask();
+  }
+
+  const newContentOfItem: string = prompt(
+    "Please enter change the content of the task",
+    `${taskList[itemToEdit - 1].split(":").pop()}`
+  );
+
+  taskList.splice(itemToEdit - 1, 1, `\n ${itemToEdit}: ${newContentOfItem}`);
+  mainMenu();
+}
+
+console.log(taskList);
+
+mainMenu();
