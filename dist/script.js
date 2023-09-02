@@ -48,6 +48,7 @@ function addToList(addedInput) {
     //   localStorage.setItem(`${taskList.length + 1}`, `${taskToDo}`);
     taskList.push("\n " + (taskList.length + 1) + ": " + taskToDo);
     var partsToInsertArr = taskList.map(function (it) { return it.split(":").pop(); });
+    localStorage.clear();
     localStorage.setItem("toDos", JSON.stringify(partsToInsertArr));
     console.log(taskList);
     mainMenu();
@@ -83,8 +84,8 @@ function editTask() {
     }
     var newContentOfItem = prompt("Please enter change the content of the task", "" + taskList[itemToEdit - 1].split(":").pop());
     taskList.splice(itemToEdit - 1, 1, "\n " + itemToEdit + ": " + newContentOfItem);
-    localStorage.clear();
     var partsToInsertArr = taskList.map(function (it) { return it.split(":").pop(); });
+    localStorage.clear();
     localStorage.setItem("toDos", JSON.stringify(partsToInsertArr));
     mainMenu();
 }

@@ -67,6 +67,8 @@ function addToList(addedInput: string) {
 
   let partsToInsertArr: object = taskList.map((it) => it.split(":").pop());
 
+  localStorage.clear();
+
   localStorage.setItem("toDos", JSON.stringify(partsToInsertArr));
 
   console.log(taskList);
@@ -129,9 +131,10 @@ function editTask() {
   );
 
   taskList.splice(itemToEdit - 1, 1, `\n ${itemToEdit}: ${newContentOfItem}`);
-  localStorage.clear();
 
   let partsToInsertArr: object = taskList.map((it) => it.split(":").pop());
+
+  localStorage.clear();
 
   localStorage.setItem("toDos", JSON.stringify(partsToInsertArr));
 
