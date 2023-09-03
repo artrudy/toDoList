@@ -1,25 +1,21 @@
 let taskList = [];
 
 function mainMenu() {
-  //   if (taskList.length === 0) {
-  //     if (localStorage.getItem("toDos") !== null) {
-  //       let partsToRestore = JSON.parse(localStorage.getItem("toDos"));
-  //       let restoreTaskList: object = partsToRestore.map(
-  //         (it, index) => `\n ${index + 1}: ${it}`
-  //       );
-  //     }
+  if (taskList.length === 0) {
+    if (localStorage.getItem("toDos") !== null) {
+      const taskListFromLocalStorage: string[] = JSON.parse(
+        localStorage.getItem("toDos")
+      );
 
-  //     taskList = [].concat(restoreTaskList);
-  //   }
+      let restoredTaskList: string[] = taskListFromLocalStorage.map(
+        (it, index) => `\n ${index + 1}: ${it}`
+      );
 
-  //   let i: number = 1;
-  //   while (localStorage.getItem(`${i}`) !== null) {
-  //     taskList.push(`\n ${taskList.length + 1}: ${localStorage.getItem(`${i}`)}`);
-  //     i += 1;
-  //     console.log(taskList);
-  //   }
+      taskList = [].concat(restoredTaskList);
+    }
+  }
 
-  const userInput = prompt(
+  const userInput: string = prompt(
     `to add new task -- please enter 'add',\nto delete previously added task -- please enter "delete",\nto edit previously added task -- plese enter "edit", \nto clear list of tasks -- please enter "clear", \nto view the list of tasks -- please enter 'view'. \nMake your choise.`
   )
     ?.trim()
@@ -65,7 +61,7 @@ function addToList(addedInput: string) {
 
   taskList.push(`\n ${taskList.length + 1}: ${taskToDo}`);
 
-  let partsToInsertArr: object = taskList.map((it) => it.split(":").pop());
+  let partsToInsertArr: string[] = taskList.map((it) => it.split(":").pop());
 
   localStorage.clear();
 
@@ -101,9 +97,9 @@ function deleteTask() {
 
   taskList.splice(itemToDelete - 1, 1);
 
-  let partsToInsertArr: object = taskList.map((it) => it.split(":").pop());
+  let partsToInsertArr: string[] = taskList.map((it) => it.split(":").pop());
 
-  let newTaskList: object = partsToInsertArr.map(
+  let newTaskList: string[] = partsToInsertArr.map(
     (it, index) => `\n ${index + 1}: ${it}`
   );
 
@@ -132,7 +128,7 @@ function editTask() {
 
   taskList.splice(itemToEdit - 1, 1, `\n ${itemToEdit}: ${newContentOfItem}`);
 
-  let partsToInsertArr: object = taskList.map((it) => it.split(":").pop());
+  let partsToInsertArr: string[] = taskList.map((it) => it.split(":").pop());
 
   localStorage.clear();
 
